@@ -88,11 +88,11 @@ products = [("T-krekls", 19.99), ("Džinsi", 49.99), ("Jaka", 89.99)]
 ## Programmas darbības apraksts
 
 1. Lietotājs izvēlas produktu kategoriju (sievietes, vīrieši vai bērni).
-2. Tiek uzsākta automātiska lapas atvēršana ar Google Chrome pārlūku (headless režīmā).
-3. Ja nepieciešams, tiek apstiprinātas sīkdatnes.
-4. Lapa tiek vairākkārtīgi skrollēta līdz apakšai, lai ielādētu visus produktus.
-5. HTML kods tiek analizēts, izmantojot regulārās izteiksmes, un iegūti visi produkti ar cenām.
-6. Produkti tiek šķiroti atbilstoši lietotāja izvēlētajam režīmam.
+2. Produkti tiek šķiroti atbilstoši lietotāja izvēlētajam režīmam.
+3. Tiek uzsākta automātiska lapas atvēršana ar Google Chrome pārlūku (headless režīmā).
+4. Ja nepieciešams, tiek apstiprinātas sīkdatnes.
+5. Lapa tiek vairākkārtīgi skrollēta līdz apakšai, lai ielādētu visus produktus.
+6. HTML kods tiek analizēts, izmantojot regulārās izteiksmes, un iegūti visi produkti ar cenām.
 7. Lietotājs var meklēt produktus vai apskatīt visus.
 8. Iespējams atgriezties izvēlnē, lai pārbaudītu citu kategoriju.
 
