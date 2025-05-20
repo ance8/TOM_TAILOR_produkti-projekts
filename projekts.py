@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import re
+
 def load_all_products(driver):
    last_height = driver.execute_script("return document.body.scrollHeight")
    for _ in range(10):
@@ -12,12 +13,14 @@ def load_all_products(driver):
        if new_height == last_height:
            break
        last_height = new_height
+      
 def accept_cookies(driver):
    try:
        cookie_button = driver.find_element(By.XPATH, '//button[contains(text(), "Accept All Cookies")]')
        cookie_button.click()
    except Exception:
        pass
+      
 def extract_products(html):
    pattern = r'"name"\s*:\s*"([^"]+)"[^}]*?"currency"\s*:\s*"EUR",\s*"price"\s*:\s*(\d+\.\d{2})'
    matches = re.findall(pattern, html)
@@ -26,6 +29,7 @@ def extract_products(html):
        price = float(price)
        products.append((name, price))
    return products
+   
 def sort_products(products, mode_number):
    if mode_number == "1":
        return sorted(products, key=lambda x: x[1])
@@ -35,6 +39,7 @@ def sort_products(products, mode_number):
        return sorted(products, key=lambda x: x[0].lower())
    else:
        return products
+      
 def product_search_loop():
    URLS = {
        "women": "https://www.tom-tailor.eu/women/new",
@@ -50,6 +55,7 @@ def product_search_loop():
        if sort_mode not in {"1", "2", "3"}:
            print("Invalid sort mode. Defaulting to 1 (price↑).")
            sort_mode = "1"
+          
        options = Options()
        options.add_argument("--headless=new")
        options.add_argument("--disable-gpu")
@@ -64,12 +70,15 @@ def product_search_loop():
        html = driver.page_source
        driver.quit()
        products = extract_products(html)
+      
        if not products:
            print("No products found. Page saved.")
            with open("page_dump.html", "w", encoding="utf-8") as f:
                f.write(html)
            continue
+          
        products = sort_products(products, sort_mode)
+      
        while True:
            search = input("Enter product name (or 'all' to show all products, 'back' to choose category again): ").strip().lower()
            if search == "back":
@@ -86,4 +95,5 @@ def product_search_loop():
                        print(f"{name} — {price:.2f} €")
                else:
                    print("No matching products. Try another search term.")
+                  
 product_search_loop()
